@@ -1,0 +1,13 @@
+#### FILE: /etc/dhcpcd.conf (append to existing) ####
+
+# Prevents dhcpcd from running the default wpa_supplicant script in /usr/lib/dhcpcd/dhcpcd-hooks/ because it is not needed
+nohook wpa_supplicant
+
+# Specifies the network interface that dhcpcd is using for this profile
+interface wlan0
+
+# Specifies a static IP address for the Raspberry Pi itself
+static ip_address=192.168.42.10/24
+
+# Specifies local IP address of gateway router for this interface
+static routers=192.168.42.1
