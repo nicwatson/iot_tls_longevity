@@ -1,0 +1,22 @@
+#### FILE: /etc/dnsmasq.conf (append to existing) ####
+
+# Name of hardware interface on which dnsmasq will provide services
+interface=wlan0
+
+# Specifying bind-dynamic theoretically (per the man page) allows multiple instances of dnsmasq to operate on different interfaces, without having to statically bind each instance to a specific interface: an instance running with bind-dynamic will automatically detect and listen on new (dynamically-created) network interfaces that appear. This is included for maximum compatibility / minimizing uncontrolled variables relative to the baseline of Fromaget's recommended settings, but may not be functionally necessary to achieve the same experimental results. 
+bind-dynamic
+
+# Specifies that dnsmasq should not forward plain host names (no domain, no dot) to upstream DNS servers. Those upstream servers would only return a failure to resolve message anyway.
+domain-needed
+
+# Specifies that dnsmasq should not forward reverse-lookups for hosts with IPs on the local (private) subnet to upstream DNS providers
+bogus-priv
+
+# Default domain that dnsmasq should use for hosts on the local subnet; this can be anything, but should include a dot somewhere.
+domain=me.local
+
+# Tells dnsmasq to automatically append the domain (specified by domain= above) when parsing plain host names (no domain or dot) from /etc/hosts
+expand-hosts
+
+# Specifies the range of local network addresses that dnsmasq will lease to DHCP clients. The first two parameters are the start and end addresses of the leasable range. The third parameter is an address mask specifying which parts of the subnet address are fixed for the subnet being managed (the original configuration file comments suggest this is unnecessary unless using a DHCP relay agent). The final parameter is lease time.
+dhcp-range=192.168.42.100,192.168.42.200,255.255.255.0,12h
